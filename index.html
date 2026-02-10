@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>—</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- 🌹 VALENTINE BACKGROUND LAYER -->
+<div class="valentine-bg"></div>
+<!-- 🌹 END BACKGROUND -->
+
+<div id="app">
+
+  <!-- PAGE 1 -->
+  <div class="page active" id="page-1">
+    <p class="quote">Curiosity usually leads somewhere interesting.</p>
+    <span class="start" id="startBtn">start</span>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="page-2">
+    <p class="quote small">Choose a world</p>
+
+    <div class="cards">
+      <div class="card" data-card="velarium">
+        <p class="card-title">Velarium</p>
+        <p class="card-text">Quiet moments speak.</p>
+      </div>
+
+      <div class="card" data-card="ludique">
+        <p class="card-title">Ludique</p>
+        <p class="card-text">Teasing energy.</p>
+      </div>
+
+      <div class="card" data-card="parallax">
+        <p class="card-title">Parallax</p>
+        <p class="card-text">Nothing is random.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page" id="page-3">
+    <p class="quote small" id="worldName"></p>
+    <p class="quote" id="worldText"></p>
+    <span class="start" id="startGameBtn">start game</span>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="page" id="page-4">
+    <p class="quote">Let’s see where this little choice takes us.</p>
+    <p class="quote small">Let’s see how you play.</p>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div class="page" id="page-5">
+    <div class="question-wrap">
+      <p class="quote" id="questionText"></p>
+
+      <div class="heart-orbit">
+        <span class="orbit-heart"></span>
+        <span class="orbit-heart"></span>
+        <span class="orbit-heart"></span>
+      </div>
+    </div>
+
+    <div class="cards" id="options"></div>
+    <p class="quote small" id="replyText"></p>
+  </div>
+
+  <!-- PAGE 6 – FINAL VALENTINE ENDING -->
+  <div class="page" id="page-6">
+    <p class="quote">
+      Valentine’s feels like the right excuse.
+    </p>
+    <p class="quote small">
+      Will you go on a date with me?
+    </p>
+
+    <div class="cards">
+      <div class="card yes-card" data-yes="soft">
+        <p class="card-text">yes 💖</p>
+      </div>
+
+      <div class="card yes-card" data-yes="bold">
+        <p class="card-text">yes, obviously 💘</p>
+      </div>
+    </div>
+
+    <p class="quote small" id="finalReply"></p>
+
+    <!-- 🐶🐱 CUTE FLOATING PETS -->
+    <div id="cutePets">
+      <span class="pet pet-dog">🐶</span>
+      <span class="pet pet-cat">🐱</span>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

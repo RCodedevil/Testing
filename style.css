@@ -1,0 +1,578 @@
+:root {
+  --bg: #1a0c10;
+  --text: #f6ecee;
+  --accent: #b33a4f;
+  --soft: rgba(246, 236, 238, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #2a0f15, var(--bg));
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", system-ui, sans-serif;
+  transition: background 1.2s ease;
+}
+
+body.level-up {
+  background: radial-gradient(circle at top, #3a121c, var(--bg));
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ================= PAGES ================= */
+
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.page.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ================= TEXT (STATIC) ================= */
+
+.quote {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.quote.small {
+  font-size: 1.2rem;
+  margin-top: 1.4rem;
+  opacity: 0.85;
+}
+
+/* ================= ACTION ================= */
+
+.start {
+  display: inline-block;
+  margin-top: 2.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  letter-spacing: 0.12em;
+}
+
+.start::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.start:hover::after {
+  width: 100%;
+}
+
+/* ================= CARDS ================= */
+
+.cards {
+  display: flex;
+  gap: 2.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.8rem;
+}
+
+
+/* ================= CARD TEXT FIX ================= */
+
+.card-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+
+  color: var(--text);
+  opacity: 0.95;
+
+  position: relative;
+  z-index: 2;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.card {
+  width: 240px;
+  padding: 2rem 1.6rem;
+  cursor: pointer;
+  border-radius: 18px;
+  background: transparent;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  background: var(--soft);
+}
+
+.card.selected {
+  background: rgba(179, 58, 79, 0.18);
+}
+
+/* ================= VALENTINE BACKGROUND ================= */
+
+.valentine-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Soft ambient glow */
+.valentine-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 120, 150, 0.12), transparent 45%),
+    radial-gradient(circle at 70% 70%, rgba(255, 90, 130, 0.08), transparent 45%);
+  animation: glowPulse 10s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ================= SHOOTING HEART TRAILS ================= */
+
+.heart-trail {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #ff6b8a;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  opacity: 0;
+  filter: drop-shadow(0 0 10px rgba(255, 107, 138, 0.7));
+}
+
+/* heart shape */
+.heart-trail::before,
+.heart-trail::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #ff6b8a;
+  border-radius: 50%;
+}
+
+.heart-trail::before { top: -7px; left: 0; }
+.heart-trail::after { left: -7px; top: 0; }
+
+/* trail */
+.heart-trail span {
+  position: absolute;
+  width: 160px;
+  height: 2px;
+  left: -160px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    to right,
+    rgba(255, 107, 138, 0.6),
+    rgba(255, 107, 138, 0)
+  );
+}
+
+/* paths */
+.trail-1 {
+  top: 30%;
+  left: -20%;
+  animation: heartCurve1 14s linear infinite;
+}
+
+.trail-2 {
+  top: 55%;
+  left: -20%;
+  animation: heartCurve2 18s linear infinite;
+  animation-delay: 5s;
+}
+
+.trail-3 {
+  top: 40%;
+  left: -20%;
+  animation: heartCurve3 22s linear infinite;
+  animation-delay: 10s;
+}
+
+@keyframes heartCurve1 {
+  0% { transform: translate(0,0) scale(0.6) rotate(45deg); opacity: 0; }
+  10% { opacity: 1; }
+  60% { transform: translate(70vw,-12vh) scale(1) rotate(45deg); }
+  100% { transform: translate(140vw,-30vh) scale(0.4) rotate(45deg); opacity: 0; }
+}
+
+@keyframes heartCurve2 {
+  0% { transform: translate(0,0) scale(0.6) rotate(45deg); opacity: 0; }
+  10% { opacity: 1; }
+  60% { transform: translate(75vw,10vh) scale(1) rotate(45deg); }
+  100% { transform: translate(140vw,28vh) scale(0.4) rotate(45deg); opacity: 0; }
+}
+
+@keyframes heartCurve3 {
+  0% { transform: translate(0,0) scale(0.6) rotate(45deg); opacity: 0; }
+  10% { opacity: 1; }
+  60% { transform: translate(72vw,-6vh) scale(1) rotate(45deg); }
+  100% { transform: translate(140vw,-22vh) scale(0.4) rotate(45deg); opacity: 0; }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 720px) {
+  .quote { font-size: 1.6rem; }
+  .card { width: 100%; max-width: 320px; }
+}
+
+
+/* ================= INPUT BOX FINAL FIX ================= */
+
+#options input {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 100%;
+  max-width: 420px;
+  height: 54px;
+
+  padding: 0 1.2rem;
+  margin: 0;
+
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 54px;
+  text-align: center;
+
+  outline: none;
+  box-shadow: none;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Placeholder style */
+#options input::placeholder {
+  color: rgba(246, 236, 238, 0.45);
+}
+
+/* Focus state — soft, romantic, NOT blue */
+#options input:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 0 0 2px rgba(179, 58, 79, 0.35);
+}
+
+/* Prevent Safari zoom / weird behavior */
+#options input::-webkit-textfield-decoration-container {
+  visibility: hidden;
+}
+
+/* Make continue align visually with box */
+#options .start {
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  opacity: 0.75;
+}
+
+#options .start:hover {
+  opacity: 1;
+}
+
+/* Just move continue slightly down – nothing else */
+#options .start {
+  margin-top: 1rem;   /* adjust this value if needed */
+}
+
+/* ================= SAFE CIRCULAR HEART ORBIT ================= */
+
+/* Rotating heart ring behind content */
+.valentine-bg::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(255, 107, 138, 0.35) 20deg,
+      transparent 40deg,
+      rgba(255, 107, 138, 0.35) 60deg,
+      transparent 80deg,
+      rgba(255, 107, 138, 0.35) 100deg,
+      transparent 120deg,
+      rgba(255, 107, 138, 0.35) 140deg,
+      transparent 160deg,
+      rgba(255, 107, 138, 0.35) 180deg,
+      transparent 200deg,
+      rgba(255, 107, 138, 0.35) 220deg,
+      transparent 240deg,
+      rgba(255, 107, 138, 0.35) 260deg,
+      transparent 280deg,
+      rgba(255, 107, 138, 0.35) 300deg,
+      transparent 320deg,
+      rgba(255, 107, 138, 0.35) 340deg,
+      transparent 360deg
+    );
+
+  mask:
+    radial-gradient(
+      circle at center,
+      transparent 58%,
+      black 60%,
+      black 64%,
+      transparent 66%
+    );
+
+  animation: heartOrbitSpin 40s linear infinite;
+  opacity: 0.45;
+}
+
+@keyframes heartOrbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ================= IMPROVE ORBIT VISIBILITY ================= */
+
+.valentine-bg::after {
+  opacity: 0.75; /* stronger presence */
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(255, 140, 170, 0.9) 18deg,
+      transparent 36deg,
+      rgba(255, 140, 170, 0.9) 54deg,
+      transparent 72deg,
+      rgba(255, 140, 170, 0.9) 90deg,
+      transparent 108deg,
+      rgba(255, 140, 170, 0.9) 126deg,
+      transparent 144deg,
+      rgba(255, 140, 170, 0.9) 162deg,
+      transparent 180deg,
+      rgba(255, 140, 170, 0.9) 198deg,
+      transparent 216deg,
+      rgba(255, 140, 170, 0.9) 234deg,
+      transparent 252deg,
+      rgba(255, 140, 170, 0.9) 270deg,
+      transparent 288deg,
+      rgba(255, 140, 170, 0.9) 306deg,
+      transparent 324deg,
+      rgba(255, 140, 170, 0.9) 342deg,
+      transparent 360deg
+    );
+
+  mask:
+    radial-gradient(
+      circle at center,
+      transparent 55%,
+      black 58%,
+      black 61%,
+      transparent 64%
+    );
+
+  filter: blur(0.6px); /* keeps it elegant, not harsh */
+}
+
+/* ================= QUESTION HEART ORBIT ================= */
+
+.question-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Orbit container */
+.heart-orbit {
+  position: absolute;
+  inset: -80px;
+  pointer-events: none;
+  animation: orbitSpin 18s linear infinite;
+}
+
+/* Individual hearts */
+.orbit-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: #ff6b8a;
+  transform: rotate(45deg);
+  opacity: 0.7;
+  filter: drop-shadow(0 0 6px rgba(255, 107, 138, 0.6));
+}
+
+/* heart shape */
+.orbit-heart::before,
+.orbit-heart::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #ff6b8a;
+  border-radius: 50%;
+}
+
+.orbit-heart::before { top: -6px; left: 0; }
+.orbit-heart::after  { left: -6px; top: 0; }
+
+/* Position 3 hearts evenly */
+.orbit-heart:nth-child(1) {
+  transform: rotate(45deg) translateX(90px);
+}
+.orbit-heart:nth-child(2) {
+  transform: rotate(165deg) translateX(90px);
+}
+.orbit-heart:nth-child(3) {
+  transform: rotate(285deg) translateX(90px);
+}
+
+/* Orbit motion */
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+/* ================= QUESTION CHANGE TRANSITION ================= */
+
+#questionText {
+  transition:
+    opacity 0.45s ease,
+    filter 0.45s ease;
+}
+
+/* when fading out */
+#questionText.question-out {
+  opacity: 0;
+  filter: blur(3px);
+}
+
+
+/* ================= FORCE CARD TITLE VISIBILITY ================= */
+
+.card p {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  color: var(--text);
+}
+
+.card-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+
+  color: var(--text) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  position: relative;
+  z-index: 10;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  color: var(--text);
+}
+
+
+/* ================= CUTE PET FLOAT / ORBIT ================= */
+
+#cutePets {
+  position: relative;
+  width: 160px;
+  height: 80px;
+  margin: 1.6rem auto 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+#cutePets.show {
+  opacity: 1;
+}
+
+.pet {
+  position: absolute;
+  font-size: 1.8rem;
+}
+
+/* Puppy orbit */
+.pet-dog {
+  top: 20px;
+  left: 0;
+  animation: floatDog 4s ease-in-out infinite;
+}
+
+/* Cat orbit */
+.pet-cat {
+  top: 20px;
+  right: 0;
+  animation: floatCat 4.5s ease-in-out infinite;
+}
+
+@keyframes floatDog {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(30px, -10px); }
+  50%  { transform: translate(60px, 0); }
+  75%  { transform: translate(30px, 10px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes floatCat {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-30px, 10px); }
+  50%  { transform: translate(-60px, 0); }
+  75%  { transform: translate(-30px, -10px); }
+  100% { transform: translate(0, 0); }
+}
