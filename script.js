@@ -13,6 +13,22 @@ const replyText = document.getElementById("replyText");
 let currentWorld = null;
 let qIndex = 0;
 
+const SHEET_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+function saveResponse(question, answer, type) {
+  fetch(SHEET_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      world: currentWorld.name,
+      question,
+      answer,
+      type
+    })
+  }).catch(err => console.error("Sheet error", err));
+}
+
+
 /* ================= WORLDS ================= */
 
 const worlds = {
@@ -324,9 +340,9 @@ function loadQuestion() {
 
 function handleAnswer(reply) {
   const q = currentWorld.questions[qIndex];
+  saveResponse(q.q, reply, q.type);
 
-  // OPTIONAL: remove if not using Google Sheets
-  // saveResponse(q.q, reply, q.type);
+  
 
   replyText.textContent = reply;
   setTimeout(() => replyText.classList.add("show"), 50);
