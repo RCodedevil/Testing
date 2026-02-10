@@ -333,10 +333,11 @@ function loadQuestion() {
     btn.className = "start";
     btn.textContent = "continue";
 
-    btn.onclick = () => {
-  if (input.value.trim()) {
-    handleAnswer(input.value.trim(), q.r);
-  }
+btn.onclick = () => {
+  const userAnswer = input.value.trim(); // 👈 capture immediately
+  if (!userAnswer) return;
+
+  handleAnswer(userAnswer, q.r);
 };
 
     
@@ -348,10 +349,10 @@ function loadQuestion() {
 function handleAnswer(answer, reply) {
   const q = currentWorld.questions[qIndex];
 
-  // ✅ Save the USER'S answer
+  // 🔒 Save FIRST, before any animation or DOM change
   saveResponse(q.q, answer, q.type);
 
-  // ✅ Show YOUR poetic reply
+  // UI feedback
   replyText.textContent = reply;
   setTimeout(() => replyText.classList.add("show"), 50);
 
@@ -369,6 +370,7 @@ function handleAnswer(answer, reply) {
     }
   }, 1400);
 }
+
 
 
 
