@@ -334,9 +334,12 @@ function loadQuestion() {
     btn.textContent = "continue";
 
     btn.onclick = () => {
-      if (input.value.trim()) handleAnswer(q.r);
-    };
+  if (input.value.trim()) {
+    handleAnswer(input.value.trim(), q.r);
+  }
+};
 
+    
     optionsBox.appendChild(input);
     optionsBox.appendChild(btn);
   }
@@ -344,8 +347,11 @@ function loadQuestion() {
 
 function handleAnswer(answer, reply) {
   const q = currentWorld.questions[qIndex];
+
+  // ✅ Save the USER'S answer
   saveResponse(q.q, answer, q.type);
 
+  // ✅ Show YOUR poetic reply
   replyText.textContent = reply;
   setTimeout(() => replyText.classList.add("show"), 50);
 
